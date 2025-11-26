@@ -836,6 +836,19 @@
                     if (contribP) {
                         document.getElementById("edit-contributions").value = contribP.textContent;
                     }
+
+                    // Load Social Links
+                    const socialTwitter = document.getElementById("social-twitter");
+                    const socialInstagram = document.getElementById("social-instagram");
+                    const socialGithub = document.getElementById("social-github");
+                    const socialLinkedin = document.getElementById("social-linkedin");
+                    const socialYoutube = document.getElementById("social-youtube");
+                    
+                    if (socialTwitter) document.getElementById("edit-social-twitter").value = socialTwitter.href || "";
+                    if (socialInstagram) document.getElementById("edit-social-instagram").value = socialInstagram.href || "";
+                    if (socialGithub) document.getElementById("edit-social-github").value = socialGithub.href || "";
+                    if (socialLinkedin) document.getElementById("edit-social-linkedin").value = socialLinkedin.href || "";
+                    if (socialYoutube) document.getElementById("edit-social-youtube").value = socialYoutube.href || "";
                 } catch (error) {
                     console.error("Error loading content:", error);
                 }
@@ -989,6 +1002,40 @@
                         console.error("✗ Contributions P not found!");
                     }
 
+                    // Save Social Links
+                    const socialTwitterUrl = document.getElementById("edit-social-twitter").value;
+                    const socialInstagramUrl = document.getElementById("edit-social-instagram").value;
+                    const socialGithubUrl = document.getElementById("edit-social-github").value;
+                    const socialLinkedinUrl = document.getElementById("edit-social-linkedin").value;
+                    const socialYoutubeUrl = document.getElementById("edit-social-youtube").value;
+
+                    const socialTwitter = document.getElementById("social-twitter");
+                    const socialInstagram = document.getElementById("social-instagram");
+                    const socialGithub = document.getElementById("social-github");
+                    const socialLinkedin = document.getElementById("social-linkedin");
+                    const socialYoutube = document.getElementById("social-youtube");
+
+                    if (socialTwitter) {
+                        socialTwitter.href = socialTwitterUrl;
+                        console.log("✓ Social Twitter updated");
+                    }
+                    if (socialInstagram) {
+                        socialInstagram.href = socialInstagramUrl;
+                        console.log("✓ Social Instagram updated");
+                    }
+                    if (socialGithub) {
+                        socialGithub.href = socialGithubUrl;
+                        console.log("✓ Social GitHub updated");
+                    }
+                    if (socialLinkedin) {
+                        socialLinkedin.href = socialLinkedinUrl;
+                        console.log("✓ Social LinkedIn updated");
+                    }
+                    if (socialYoutube) {
+                        socialYoutube.href = socialYoutubeUrl;
+                        console.log("✓ Social YouTube updated");
+                    }
+
                     // Save all to localStorage
                     console.log("Saving to localStorage...");
                     localStorage.setItem("tobirama_about", aboutContent);
@@ -1002,6 +1049,11 @@
                     localStorage.setItem("tobirama_video1", video1);
                     localStorage.setItem("tobirama_video2", video2);
                     localStorage.setItem("tobirama_contributions", contribContent);
+                    localStorage.setItem("tobirama_social_twitter", socialTwitterUrl);
+                    localStorage.setItem("tobirama_social_instagram", socialInstagramUrl);
+                    localStorage.setItem("tobirama_social_github", socialGithubUrl);
+                    localStorage.setItem("tobirama_social_linkedin", socialLinkedinUrl);
+                    localStorage.setItem("tobirama_social_youtube", socialYoutubeUrl);
 
                     for (let i = 0; i < 3; i++) {
                         localStorage.setItem(`tobirama_project${i + 1}_title`, document.getElementById(`edit-project${i + 1}-title`).value);
@@ -1176,6 +1228,18 @@
         </div>
     </section>
 
+    <!-- Social Media Section -->
+    <div class="card" id="social" style="text-align: center;">
+        <h2>Follow Me</h2>
+        <div class="social-links" style="display: flex; gap: 20px; justify-content: center; margin-top: 20px; flex-wrap: wrap;">
+            <a id="social-twitter" href="#" class="social-link" style="text-decoration: none; font-size: 24px; transition: transform 0.3s ease;" title="Twitter/X">𝕏</a>
+            <a id="social-instagram" href="#" class="social-link" style="text-decoration: none; font-size: 24px; transition: transform 0.3s ease;" title="Instagram">📷</a>
+            <a id="social-github" href="#" class="social-link" style="text-decoration: none; font-size: 24px; transition: transform 0.3s ease;" title="GitHub">👉</a>
+            <a id="social-linkedin" href="#" class="social-link" style="text-decoration: none; font-size: 24px; transition: transform 0.3s ease;" title="LinkedIn">💼</a>
+            <a id="social-youtube" href="#" class="social-link" style="text-decoration: none; font-size: 24px; transition: transform 0.3s ease;" title="YouTube">📹</a>
+        </div>
+    </div>
+
     <!-- Admin Button -->
     <button id="admin-btn" onclick="openAdminPanel()">⚙️ Admin</button>
 
@@ -1203,6 +1267,7 @@
                     <button class="admin-tab-btn" onclick="switchAdminTab('videos')">Videos</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('projects')">Projects</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('contributions')">Contributions</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('social')">Social</button>
                 </div>
 
                 <!-- About Tab -->
@@ -1324,6 +1389,30 @@
                     <div class="admin-form-group">
                         <label for="edit-contributions">Contributions:</label>
                         <textarea id="edit-contributions" placeholder="Edit contributions content"></textarea>
+                    </div>
+                </div>
+
+                <!-- Social Tab -->
+                <div id="tab-social" class="admin-tab-content">
+                    <div class="admin-form-group">
+                        <label for="edit-social-twitter">Twitter/X URL:</label>
+                        <input type="text" id="edit-social-twitter" placeholder="https://twitter.com/yourhandle">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="edit-social-instagram">Instagram URL:</label>
+                        <input type="text" id="edit-social-instagram" placeholder="https://instagram.com/yourhandle">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="edit-social-github">GitHub URL:</label>
+                        <input type="text" id="edit-social-github" placeholder="https://github.com/yourhandle">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="edit-social-linkedin">LinkedIn URL:</label>
+                        <input type="text" id="edit-social-linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="edit-social-youtube">YouTube URL:</label>
+                        <input type="text" id="edit-social-youtube" placeholder="https://youtube.com/@yourchannel">
                     </div>
                 </div>
 
